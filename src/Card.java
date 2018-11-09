@@ -18,7 +18,7 @@ public class Card {
 	}
 	
 	public String getImage() {
-		
+		return "";
 	}
 	
 }

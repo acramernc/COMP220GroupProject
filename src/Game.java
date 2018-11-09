@@ -14,7 +14,7 @@ public class Game {
 	}
 	
 	public Player getWinner() {
-		
+		return null;
 	}
 	
 	public void deal() {

@@ -17,7 +17,7 @@ public class Deck {
 	}
 	
 	public Card draw() {
-		
+		return null;
 	}
 	
 }

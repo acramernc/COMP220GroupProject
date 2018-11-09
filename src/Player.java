@@ -25,6 +25,6 @@ public class Player {
 	}
 	
 	public boolean isBetter(Player other) {
-		
+		return true;
 	}
 }
