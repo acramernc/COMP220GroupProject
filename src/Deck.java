@@ -28,7 +28,7 @@ public class Deck {
 	 * @return a card from the top of the deck
 	 */
 	public Card draw() {
-		
+		return null;
 	}
 	
 }

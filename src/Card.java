@@ -33,7 +33,7 @@ public class Card {
 	 * @return filepath of card image
 	 */
 	public String getImage() {
-		
+		return "";
 	}
 	
 }

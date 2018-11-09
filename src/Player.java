@@ -50,6 +50,6 @@ public class Player {
 	 * @return true if this player is better than other player
 	 */
 	public boolean isBetter(Player other) {
-		
+		return true;
 	}
 }

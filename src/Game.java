@@ -30,7 +30,7 @@ public class Game {
 	 * @return player that won
 	 */
 	public Player getWinner() {
-		
+		return null;
 	}
 	
 	/**
