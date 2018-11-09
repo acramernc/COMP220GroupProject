@@ -5,9 +5,3 @@ Group Memebers: Adam, Jake, Wesley
 
 Project Goal:
 Code a Texas hold'em poker game
-<<<<<<< HEAD
-=======
-
-
-I edited this in Eclipse.
->>>>>>> refs/heads/MyBranch
