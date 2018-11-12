@@ -15,7 +15,7 @@ public class Card {
 	 * @param suit Suit of the card
 	 */
 	public Card(int val, char suit) {
-		
+
 	}
 
 	
