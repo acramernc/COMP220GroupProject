@@ -15,7 +15,8 @@ public class Card {
 	 * @param suit Suit of the card
 	 */
 	public Card(int val, char suit) {
-
+		this.value = val;
+		this.suit = suit;
 	}
 
 	
@@ -33,7 +34,7 @@ public class Card {
 	 * @return filepath of card image
 	 */
 	public String getImage() {
-		return "";
+		return "../CardImages/" + this.value + this.suit + ".png";
 	}
 	
 }
