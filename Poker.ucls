@@ -46,43 +46,78 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <association id="6">    
+  <class id="6" language="java" name="GameScreen" project="Project 5 Group Project" 
+    file="/Project 5 Group Project/src/GameScreen.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1150" y="186"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="MenuScreen" project="Project 5 Group Project" 
+    file="/Project 5 Group Project/src/MenuScreen.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1147" y="355"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="Score" project="Project 5 Group Project" 
+    file="/Project 5 Group Project/src/Score.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="97" width="125" x="1037" y="533"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="9">    
     <bendpoint x="582" y="360"/>    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="7" name="commCards">        
+      <attribute id="10" name="commCards">        
         <position height="22" width="95" x="478" y="316"/>      
       </attribute>      
-      <multiplicity id="8" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="9">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="10" name="cards">        
-        <position height="22" width="48" x="708" y="455"/>      
-      </attribute>      
-      <multiplicity id="11" minimum="0" maximum="2147483647"/>    
+      <multiplicity id="11" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="12">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="13" name="hand">        
-        <position height="22" width="45" x="458" y="404"/>      
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="13" name="cards">        
+        <position height="22" width="48" x="708" y="455"/>      
       </attribute>      
-      <multiplicity id="14" minimum="0" maximum="2147483647"/>    
+      <multiplicity id="14" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="15">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="16" name="hand">        
+        <position height="22" width="45" x="458" y="404"/>      
+      </attribute>      
+      <multiplicity id="17" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="18">    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="16" name="players">        
+      <attribute id="19" name="players">        
         <position height="22" width="60" x="368" y="275"/>      
       </attribute>      
-      <multiplicity id="17" minimum="0" maximum="2147483647"/>    
+      <multiplicity id="20" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  

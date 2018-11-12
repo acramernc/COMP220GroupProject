@@ -43,13 +43,13 @@ public class Player {
 	public void check() {
 		
 	}
-	
+	/* replaced by score class
 	/**
 	 * compares this player and other player to determine who wins
 	 * @param other the player to compare
 	 * @return true if this player is better than other player
-	 */
+	 *\/
 	public boolean isBetter(Player other) {
 		return true;
-	}
+	}*/
 }
