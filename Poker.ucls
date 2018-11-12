@@ -80,7 +80,7 @@
   <association id="15">    
     <end type="SOURCE" refId="3" navigable="false">      
       <attribute id="16" name="players">        
-        <position height="22" width="60" x="388" y="280"/>      
+        <position height="22" width="60" x="368" y="275"/>      
       </attribute>      
       <multiplicity id="17" minimum="0" maximum="2147483647"/>    
     </end>    
