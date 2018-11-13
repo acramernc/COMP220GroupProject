@@ -13,8 +13,10 @@ public class Player {
 	/**
 	 * Creates a blank player with no cards or money
 	 */
-	public Player() {
+	public Player(String name) {
 		money = 500;
+		this.name = name;
+		hand = new ArrayList<>();
 	}
 	
 	/**

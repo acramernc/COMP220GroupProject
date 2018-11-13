@@ -18,10 +18,13 @@ public class Game {
 	 * @param players number of players
 	 */
 	public Game(int numPlayers) {
+		players = new LinkedList<>();
 		for (int i = 0; i < numPlayers; i++) {
-			players.add(new Player());
+			players.add(new Player("Player" + (i + 1)));
 		}
+		players.get(0).isDealer = true;
 		stakes = 0;
+		pot = 0;
 	}
 	
 	/** 
@@ -30,7 +33,7 @@ public class Game {
 	public void play() {
 		System.out.println("Welcome to Poker! Let's deal out the cards.");
 		Deck deck = new Deck();
-		deal(deck);
+		deck.shuffle();
 		
 		//This sorts the LinkedList of players so that the dealer is first in 
 		//queue in order to assign the small and big blinds
@@ -38,10 +41,13 @@ public class Game {
 			if (!players.get(i).isDealer) {
 				players.add(players.remove(i));
 				i--;
+			} else {
+				break;
 			}
 		}
 		
-		
+
+		deal(deck);
 		for (int i = 0; i < players.size(); i++) {
 			System.out.println(players.get(i).name + " has the cards " + players.get(i).toString());
 		}
