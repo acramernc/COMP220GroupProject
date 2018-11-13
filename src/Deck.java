@@ -1,3 +1,4 @@
+import java.util.Collections;
 import java.util.LinkedList;
 
 /**
@@ -7,20 +8,29 @@ import java.util.LinkedList;
  */
 public class Deck {
 	private LinkedList<Card> cards;
+	private final int highestCardValue = 13;
+	private final char[] suit = {'h','s','c','d'};
 	
 	/**
 	 * Default Constructor for Deck
 	 * Creates a Standard deck (52 Cards) unshuffled
 	 */
 	public Deck() {
-		
+		cards = new LinkedList<Card>();
+		//Fill deck with cards
+		for (int i = 1; i <= highestCardValue; i++) {
+			for (int j = 0; j < suit.length; j++) {
+				Card c = new Card(i, suit[j]);
+				cards.add(c);
+			}
+		}
 	}
 	
 	/**
 	 * Shuffled the deck multiple times
 	 */
 	public void shuffle() {
-		
+		Collections.shuffle(cards);
 	}
 	
 	/**
@@ -28,7 +38,7 @@ public class Deck {
 	 * @return a card from the top of the deck
 	 */
 	public Card draw() {
-		return null;
+		return cards.removeFirst();
 	}
 	
 }
