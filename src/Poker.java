@@ -15,6 +15,6 @@ public class Poker{
 		System.out.println("And how many computer opponents would you like?");
 		int numComp = scan.nextInt();
 		Game g = new Game(numHuman,numComp);
-		g.play();
+		g.playHand();
 	}
 }
