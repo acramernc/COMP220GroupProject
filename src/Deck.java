@@ -13,7 +13,7 @@ public class Deck {
 	
 	/**
 	 * Default Constructor for Deck
-	 * Creates a Standard deck (52 Cards) unshuffled
+	 * Creates a Standard deck (52 Cards) Unshuffled
 	 */
 	public Deck() {
 		cards = new LinkedList<Card>();

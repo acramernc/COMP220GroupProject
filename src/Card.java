@@ -10,7 +10,7 @@ public class Card {
 	private char suitChar;
 	 
 	/**
-	 * Creates a Card of value val and suit suit
+	 * Creates a Card of value val and suit suit, also creates variable with first character of suit
 	 * @param val Value of the card
 	 * @param suit Suit of the card
 	 */
