@@ -7,6 +7,8 @@ import java.util.ArrayList;
 public class Player {
 	public ArrayList<Card> hand;
 	public int money;
+	public String name;
+	public boolean isDealer;
 	
 	/**
 	 * Creates a blank player with no cards or money
@@ -52,4 +54,12 @@ public class Player {
 	public boolean isBetter(Player other) {
 		return true;
 	}*/
+	
+	public String toString() {
+		String output = "";
+		for (int i = 0; i < hand.size(); i++) {
+			output += hand.get(i).getValue() + " of " + hand.get(i).getSuit() + ",";
+		}
+		return output;
+	}
 }
