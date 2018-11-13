@@ -19,6 +19,12 @@ public class Player {
 		hand = new ArrayList<>();
 	}
 	
+	
+	public void getBid() {
+		
+	}
+	
+	
 	/**
 	 * Raises the current bid by ammount
 	 * @param ammount ammount to raise the bid by
