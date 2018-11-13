@@ -7,8 +7,8 @@ import java.util.LinkedList;
  */
 public class Game {
 	public int numPlayers;
-	private ArrayList<Card> commCards;
-	private LinkedList<Player> players;
+	public ArrayList<Card> commCards;
+	public LinkedList<Player> players;
 	private int stakes;
 	private int pot;
 	
@@ -73,6 +73,8 @@ public class Game {
 //			if players.get(i).is
 //		}
 //	}
+	
+	
 	private void firstBet() {
 		
 	}

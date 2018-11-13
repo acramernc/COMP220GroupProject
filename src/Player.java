@@ -9,6 +9,7 @@ public class Player {
 	public int money;
 	public String name;
 	public boolean isDealer;
+	public boolean hasFolded;
 	
 	/**
 	 * Creates a blank player with no cards or money
@@ -17,6 +18,8 @@ public class Player {
 		money = 500;
 		this.name = name;
 		hand = new ArrayList<>();
+		hasFolded = false;
+		isDealer = false;
 	}
 	
 	
