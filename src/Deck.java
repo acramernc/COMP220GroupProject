@@ -9,7 +9,7 @@ import java.util.LinkedList;
 public class Deck {
 	private LinkedList<Card> cards;
 	private final int highestCardValue = 13;
-	private final char[] suit = {'h','s','c','d'};
+	private final String[] suit = {"Hearts","Spades","Clubs","Diamonds"};
 	
 	/**
 	 * Default Constructor for Deck
