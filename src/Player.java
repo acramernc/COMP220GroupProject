@@ -5,14 +5,14 @@ import java.util.ArrayList;
  *
  */
 public class Player {
-	private ArrayList<Card> hand;
+	public ArrayList<Card> hand;
 	public int money;
 	
 	/**
 	 * Creates a blank player with no cards or money
 	 */
 	public Player() {
-		
+		money = 500;
 	}
 	
 	/**

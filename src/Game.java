@@ -14,8 +14,10 @@ public class Game {
 	 * and initializes each player
 	 * @param players number of players
 	 */
-	public Game(int players) {
-		
+	public Game(int numPlayers) {
+		for (int i = 0; i < numPlayers; i++) {
+			players.add(new Player());
+		}
 	}
 	
 	/** 
@@ -36,8 +38,12 @@ public class Game {
 	/**
 	 * deals cards from the deck into the player's hands
 	 */
-	public void deal() {
-		
+	public void deal(Deck deck) {
+		for (int i = 0; i < 2; i++) {
+			for (Player currentPlayer : players) {
+				currentPlayer.hand.add(deck.draw());
+			}
+		}
 	}
 
 	/**
