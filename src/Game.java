@@ -17,14 +17,23 @@ public class Game {
 	 * and initializes each player
 	 * @param players number of players
 	 */
-	public Game(int numPlayers) {
+	public Game(int numHuman, int numComp) {
 		players = new LinkedList<>();
-		for (int i = 0; i < numPlayers; i++) {
+		numPlayers = numHuman + numComp;
+		
+		//Adds human players
+		for (int i = 0; i < numHuman; i++) {
 			players.add(new Player("Player" + (i + 1)));
+		}
+		
+		//Adds computer players
+		for (int i = 0; i < numComp; i++) {
+			players.add(new ComputerOpponent());
 		}
 		players.get(0).isDealer = true;
 		stakes = 0;
 		pot = 0;
+		commCards = new ArrayList<>();
 	}
 	
 	/** 
@@ -34,7 +43,6 @@ public class Game {
 		System.out.println("Welcome to Poker! Let's deal out the cards.");
 		Deck deck = new Deck();
 		deck.shuffle();
-		
 		//This sorts the LinkedList of players so that the dealer is first in 
 		//queue in order to assign the small and big blinds
 		for (int i = 0; i < players.size(); i++) {
