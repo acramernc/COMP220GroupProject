@@ -16,6 +16,7 @@ public class Player {
 	//hasFolded is true when the player folds their cards
 	public boolean hasFolded;
 	private Scanner scan;
+	public boolean isComp;
 	
 	/**
 	 * Creates a blank player with no cards or money
@@ -27,60 +28,76 @@ public class Player {
 		hasFolded = false;
 		isDealer = false;
 		scan = new Scanner(System.in);
+		isComp = false;
 	}
 	
 	
 	public int getBid(int stakes, int pot) {
 		System.out.println(name + ",s turn\nYou have " + this.toString());
 		System.out.println("The stakes are at " + stakes + " and the pot is " + pot + 
-				"Your current bid is " + currentBid);
-		System.out.println("Would you like to fold(f), check(c), raise(r) or call(l)?");
-		char answer = scan.next().toLowerCase().charAt(0);
-		if (answer == 'f') {
-			fold();
-			return stakes;
-		}
-		else if (answer == 'c') {
-			check();
-			return stakes;
-		}
-		else if (answer == 'l') {
-			call();
-			return stakes;
-		}
-		else if (answer == 'r') {
-			System.out.println("What would you like to raise it to?");
-			int amount = scan.nextInt();
-			raise(amount-stakes);
-			return amount;
-		}
-		else {
-			System.out.println("You did not pick one of the options so you will fold.");
-			fold();
-			return stakes;
-		}
+				".\nYour current bid is " + currentBid + " and you have " + money + " dollars.");
+		do {
+			System.out.println("Would you like to fold(f), check(c), raise(r) or call(l)?");
+			char answer = scan.next().toLowerCase().charAt(0);
+			if (answer == 'f') {
+				fold();
+				return stakes;
+			}
+			else if (answer == 'c') {
+				
+				if (stakes == currentBid) {
+					check();
+					return stakes;
+				}
+				else {
+					System.out.println("You cannot check. You must either call, raise, or fold.");
+				}
+			}
+			else if (answer == 'l') {
+				call(stakes);
+				return stakes;
+			}
+			else if (answer == 'r') {
+				System.out.println("What would you like to raise it to?");
+				int amount = scan.nextInt();
+				if (amount > stakes) {
+					raise(amount);
+					return amount;
+				}
+				else {
+					System.out.println("You must raise the bid to a higher amount than it already is.");
+				}
+			} else
+				System.out.println("You did not pick one of the options, try not being an idiot.");
+			} while (true);
 	}
 	
 	
 	/**
-	 * Raises the current bid by ammount
-	 * @param ammount ammount to raise the bid by
+	 * Raises the current bid to amount
+	 * @param amount what the total bid will be
 	 */
-	public void raise(int ammount) {
-		
+	public void raise(int amount) {
+		System.out.println(name + " has raised the stakes to " + amount);
+		money -= amount - currentBid;
+		currentBid = amount;
 	}
 	
 	/**
 	 * Match the current bid
 	 */
-	public void call() {
-		
+	public void call(int stakes) {
+		System.out.println(name + " has called.");
+		money -= stakes - currentBid;
+		currentBid = stakes;
 	}
 	
 	/**
 	 * fold the hand
 	 */
 	public void fold() {
+		System.out.println(name + " has folded.");
+		money -= currentBid;
 		hasFolded = true;
 	}
 	

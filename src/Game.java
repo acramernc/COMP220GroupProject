@@ -41,7 +41,6 @@ public class Game {
 		//playerIter = players.iterator();
 		
 		
-		stakes = 0;
 		commCards = new ArrayList<>();
 	}
 	
@@ -66,37 +65,73 @@ public class Game {
 		
 
 		deal(deck);
+		
+		//Resets everyone to not being folded and says what everyone has
 		for (int i = 0; i < players.size(); i++) {
 			players.get(i).hasFolded = false;
 			System.out.println(players.get(i).name + " has the cards " + players.get(i).toString());
 		}
 		
 		//Assigns the small and big blinds, which are forced to start the bidding
+		nextPlayer();
 		Player smallBlind = nextPlayer();
 		Player bigBlind = nextPlayer();
 		
 		smallBlind.currentBid += 25;
 		bigBlind.currentBid += 50;
+		stakes = 50;
 				
 		System.out.println("Let's begin the first betting round. The small and big blinds have been assigned.");
+		bet();
+		
+		for (int i = 0; i < 3; i++) {
+			commCards.add(deck.draw());
+		}
+		bet();
+		commCards.add(deck.draw());
+		bet();
+		commCards.add(deck.draw());
 		bet();
 	}
 
 	
+	/**
+	 * this starts a betting round,getting bets from each player, and goes until isBettingFunction returns false
+	 */
 	private void bet() {
 		System.out.println("The pot is currently at " + getPot() + " dollars");
 		Player current;
 		//Will do this until everyone stops raising the stakes
 		do {
-			for (Player currentPlayer : players) {
-				System.out.println(currentPlayer.name + " has bid " + currentPlayer.currentBid);
-			}
+
 			current = nextPlayer();
 			
-			current.getBid(stakes, getPot());
+			//Only does this for human players
+			if (!current.isComp) {
+				for (Player currentPlayer : players) {
+					System.out.println(currentPlayer.name + " has bid " + currentPlayer.currentBid);
+				}
+				if (commCards.size() != 0) {
+					String s = "";
+					for (int i = 0; i < commCards.size(); i++) {
+						s += commCards.get(i).toString() + ", ";
+						if (i == commCards.size() - 1) {
+							s += commCards.get(i).toString();
+						}
+					}
+					System.out.println("The community cards are " + s);
+				}
+			}
+			
+			stakes = current.getBid(stakes, getPot());
 		} while (isBetting());
 	}
 	
+	
+	/**
+	 * 
+	 * @return true if at least one person is still betting and has not bid the same amount as the stakes
+	 */
 	private boolean isBetting() {
 		
 		//Goes through each player, skipping ones who have folded
@@ -104,10 +139,10 @@ public class Game {
 		//to determine if the bidding round is over
 		for (Player currentPlayer : players) {
 			if (currentPlayer.currentBid != stakes && !currentPlayer.hasFolded) {
-				return false;
+				return true;
 			}
 		}
-		return true;
+		return false;
 	}
 	
 	/**
@@ -131,6 +166,11 @@ public class Game {
 		return commCards;
 	}
 	
+	
+	/**
+	 * 
+	 * @return the total amount of money in the pot
+	 */
 	private int getPot() {
 		int output = 0;
 		for (Player currentPlayer : players) {
@@ -145,7 +185,7 @@ public class Game {
 	 * @return
 	 */
 	private Player nextPlayer() {
-		Player out = players.peek();
+		Player out = players.peekFirst();
 		players.offer(players.removeFirst());
 		return out;
 	}

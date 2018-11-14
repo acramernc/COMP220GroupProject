@@ -8,12 +8,20 @@ public class ComputerOpponent extends Player {
 	public ComputerOpponent() {
 		
 		super(names[(int)Math.floor(Math.random() * names.length)]);
+		isComp = true;
 	}
 	
 	
 	
 	@Override
-	public void getBid() {
-		check();
+	public int getBid(int stakes, int pot) {
+		if (currentBid == stakes) {
+			check();
+			return stakes;
+		}
+		else {
+			call(stakes);
+			return stakes;
+		}
 	}
 }
