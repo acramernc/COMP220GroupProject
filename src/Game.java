@@ -8,10 +8,10 @@ import java.util.LinkedList;
  */
 public class Game {
 	public int numPlayers;
-	public ArrayList<Card> commCards;
+	private ArrayList<Card> commCards;
 	//We use a LinkedList because we need to keep the order of players 
 	//for bidding and assigning small and big blinds
-	public LinkedList<Player> players;
+	private LinkedList<Player> players;
 	//Stakes is what the bid is currently at per player
 	private int stakes;
 	//private Iterator<Player> playerIter;
