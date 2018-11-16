@@ -111,13 +111,15 @@ public class Game {
 				for (Player currentPlayer : players) {
 					System.out.println(currentPlayer.name + " has bid " + currentPlayer.currentBid);
 				}
+				
+				//Will only show community cards to human players if there are community cards.
 				if (commCards.size() != 0) {
-					String s = "";
+					String s = "";					
 					for (int i = 0; i < commCards.size(); i++) {
-						s += commCards.get(i).toString() + ", ";
 						if (i == commCards.size() - 1) {
 							s += commCards.get(i).toString();
-						}
+						} else 
+							s += commCards.get(i).toString() + ", ";
 					}
 					System.out.println("The community cards are " + s);
 				}
