@@ -31,7 +31,12 @@ public class Player {
 		isComp = false;
 	}
 	
-	
+	/**
+	 * this method takes input from the player and gets what the player wants to do.
+	 * @param stakes the current highest bid
+	 * @param pot the total amount of money in the pot
+	 * @return the stakes after the players turn
+	 */
 	public int getBid(int stakes, int pot) {
 		System.out.println(name + ",s turn\nYou have " + this.toString());
 		System.out.println("The stakes are at " + stakes + " and the pot is " + pot + 
@@ -117,11 +122,15 @@ public class Player {
 		return true;
 	}*/
 	
+	
+	/**
+	 * Prints out the hand of the player
+	 */
 	public String toString() {
 		String output = "";
 		for (int i = 0; i < hand.size(); i++) {
 			if (i != hand.size() - 1)
-				output += hand.get(i).toString() + ",";
+				output += hand.get(i).toString() + "'";
 			else
 				output += hand.get(i).toString();
 		}
