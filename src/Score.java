@@ -81,7 +81,7 @@ public class Score {
 	}
 	
 	/**
-	 * 
+	 *   
 	 * @return True if is a Straight Flush
 	 */
 	public boolean isSFlush(ArrayList<Card> hand, ArrayList<Card> commCards) {
@@ -249,6 +249,14 @@ public class Score {
 		for(Card c: commCards) {
 			
 		}
+	}
+	
+	public boolean isSameSuit(Card one, Card two) {
+		return one.getSuit() == two.getSuit();
+	}
+	
+	public boolean isSameRank(Card one, Card two) {
+		return one.getValue() == two.getValue();
 	}
 	
 	
