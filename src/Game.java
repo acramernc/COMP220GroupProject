@@ -125,7 +125,7 @@ public class Game {
 				}
 			}
 			
-			stakes = current.getBid(stakes, getPot());
+			stakes = current.getBid(stakes, getPot(), getCommCards());
 		} while (isBetting());
 	}
 	

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class ComputerOpponent extends Player {
 	
@@ -14,7 +15,7 @@ public class ComputerOpponent extends Player {
 	
 	
 	@Override
-	public int getBid(int stakes, int pot) {
+	public int getBid(int stakes, int pot, ArrayList<Card> commCards) {
 		if (currentBid == stakes) {
 			check();
 			return stakes;
