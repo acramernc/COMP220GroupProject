@@ -19,7 +19,7 @@ public class Score {
 	 * ranks hand based on rankings specified in handRanks.txt
 	 * @return integer ranking of hand
 	 */
-	public int rankHand() {
+	public int rankHand() {//maybe dont need this
 		
 	}
 	
@@ -222,7 +222,7 @@ public class Score {
 	 * @param suit
 	 * @return
 	 */
-	public int findHighest(ArrayList<Card> hand, ArrayList<Card> commCards, char suit) {
+	public int findHighest(ArrayList<Card> hand, ArrayList<Card> commCards, char suit) {//TODO figure out if this is used
 		int highCard = 0;
 		for(Card c: hand) {
 			if(c.getValue() > highCard)//For normal straight will have to check for ace
@@ -241,14 +241,38 @@ public class Score {
 	 */
 	public boolean isFour(ArrayList<Card> hand, ArrayList<Card> commCards) {
 		//TODO finish
+		//for each card find if there are three others of the same 
+		//make sure that at least one of the four is from the hand
+		boolean hasFour = false;//will be true if there are 4 cards of the same value in all
+		int value =0;//holds the value of the four of a kind
+		//Create an arraylist of all the possible cards for easier checking
+		ArrayList<Card> all = new ArrayList<Card>();
+		for(Card c: hand) {
+			all.add(c);
+		}
+		for(Card c: commCards) {
+			all.add(c);
+		}
+		
+		for(Card c: all) {
+			for(Card d: all) {
+				if(c.getValue() == d.getValue() && c.getSuit() != d.getSuit()) {
+					for(Card e: all) {
+						if(e.getValue() == d.getValue() && e.getSuit() != d.getSuit() && c.getSuit() != e.getSuit()) {
+							for(Card f: all) {
+								if(f.getValue() == d.getValue() && f.getSuit() != d.getSuit() && c.getSuit() != f.getSuit() && e.getSuit()!=f.getSuit()) {
+									hasFour = true;
+									value = f.getValue();
+								}}}}}}}
+		if(!hasFour)
+			return false;
 		
 		for(Card c: hand) {
-			
+			if (c.getValue()== value)
+				return true;//TODO check that this follows rules
 		}
+		return false;
 		
-		for(Card c: commCards) {
-			
-		}
 	}
 	
 	public boolean isSameSuit(Card one, Card two) {
