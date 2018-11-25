@@ -112,7 +112,7 @@ public class Score {
 		else 
 			return false;
 		
-		/*
+		/*TODO remove this
 		if(highCard < 6)//straight must have a high card of at least 6 eg. 6,5,4,3,2
 			return false;
 		
