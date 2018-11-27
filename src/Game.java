@@ -83,15 +83,31 @@ public class Game {
 				
 		System.out.println("Let's begin the first betting round. The small and big blinds have been assigned.");
 		bet();
-		
+		//Stops the hand and gives money to winner if everyone else has folded.
+		if (checkWinner()) {
+			return;
+		}
 		for (int i = 0; i < 3; i++) {
 			commCards.add(deck.draw());
 		}
 		bet();
+		//Stops the hand and gives money to winner if everyone else has folded.
+		if (checkWinner()) {
+			return;
+		}
 		commCards.add(deck.draw());
 		bet();
+		//Stops the hand and gives money to winner if everyone else has folded.
+		if (checkWinner()) {
+			return;
+		}
 		commCards.add(deck.draw());
 		bet();
+		//Stops the hand and gives money to winner if everyone else has folded.
+		if (checkWinner()) {
+			return;
+		}
+		getWinner();
 	}
 
 	
@@ -106,6 +122,8 @@ public class Game {
 
 			current = nextPlayer();
 			
+			
+			//Skips current player if they have folded
 			if (!current.hasFolded) {
 				//Only does this for human players
 				if (!current.isComp) {
@@ -134,6 +152,7 @@ public class Game {
 				current.isBetting = false;
 			}
 		} while (isBetting());
+		
 		for (Player currentPlayer : players) {
 			currentPlayer.isBetting = true;
 		}
@@ -203,6 +222,67 @@ public class Game {
 		Player out = players.peekFirst();
 		players.offer(players.removeFirst());
 		return out;
+	}
+	
+	/**
+	 * 
+	 * @return true if there is only one player remaining
+	 */
+	private boolean onePlayerRemaining() {
+		int numPlayersActive = 0;
+		for (Player currentPlayer : players) {
+			if (!currentPlayer.hasFolded)
+				numPlayersActive++;
+		}
+		if (numPlayersActive == 1)
+			return true;
+		else return false;
+	}
+	
+	/**
+	 * 
+	 * @return true if the hand is over early
+	 */
+	private boolean checkWinner() {
+		Player winner = null;
+		if (onePlayerRemaining()) {
+			for (Player currentPlayer : players) {
+				if (!currentPlayer.hasFolded)
+					winner = currentPlayer;
+			}
+			winner.money += getPot();
+			return true;
+		} else return false;
+	}
+	
+	/**
+	 * Determines winner of a hand at the end of the round and gives them the money
+	 */
+	private void getWinner() {
+		Player winner = null;
+		Score score = new Score(players);
+		winner = score.getWinner();
+		winner.money += getPot();
+	}
+	
+	/**
+	 * Resets all of the players in order to play another hand.
+	 */
+	public void reset() {
+		//This sorts the LinkedList of players so that the dealer is first in 
+		//queue in order to assign the small and big blinds
+		for (int i = 0; i < players.size(); i++) {
+			if (!players.get(i).isDealer) {
+				players.add(players.remove(i));
+				i--;
+			} else {
+				break;
+			}
+		}
+		//Sets the next player in line to be the dealer
+		players.peek().isDealer = false;
+		players.add(players.remove(0));
+		players.peek().isDealer = true;
 	}
 	
 }

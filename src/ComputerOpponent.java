@@ -49,7 +49,7 @@ public class ComputerOpponent extends Player {
 				if (card.getValue() < 5)
 					prob -= 10;
 				if (card.getValue() > 10)
-					prob += 6;
+					prob += 25;
 			}
 			int rand = (int)(Math.random() *100);
 			System.out.println("probability: " + prob + " rand: " + rand);
