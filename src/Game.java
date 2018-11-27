@@ -106,27 +106,37 @@ public class Game {
 
 			current = nextPlayer();
 			
-			//Only does this for human players
-			if (!current.isComp) {
-				for (Player currentPlayer : players) {
-					System.out.println(currentPlayer.name + " has bid " + currentPlayer.currentBid);
-				}
-				
-				//Will only show community cards to human players if there are community cards.
-				if (commCards.size() != 0) {
-					String s = "";					
-					for (int i = 0; i < commCards.size(); i++) {
-						if (i == commCards.size() - 1) {
-							s += commCards.get(i).toString();
-						} else 
-							s += commCards.get(i).toString() + ", ";
+			if (!current.hasFolded) {
+				//Only does this for human players
+				if (!current.isComp) {
+					for (Player currentPlayer : players) {
+						if (!currentPlayer.hasFolded) {
+						System.out.println(currentPlayer.name + " has bid " + currentPlayer.currentBid);
+						} else {
+							System.out.println(currentPlayer.name + " has folded");
+						}
 					}
-					System.out.println("The community cards are " + s);
+					
+					//Will only show community cards to human players if there are community cards.
+					if (commCards.size() != 0) {
+						String s = "";					
+						for (int i = 0; i < commCards.size(); i++) {
+							if (i == commCards.size() - 1) {
+								s += commCards.get(i).toString();
+							} else 
+								s += commCards.get(i).toString() + ", ";
+						}
+						System.out.println("The community cards are " + s);
+					}
 				}
-			}
 			
-			stakes = current.getBid(stakes, getPot(), getCommCards());
+				stakes = current.getBid(stakes, getPot(), getCommCards());
+				current.isBetting = false;
+			}
 		} while (isBetting());
+		for (Player currentPlayer : players) {
+			currentPlayer.isBetting = true;
+		}
 	}
 	
 	
@@ -137,9 +147,12 @@ public class Game {
 	private boolean isBetting() {
 		
 		//Goes through each player, skipping ones who have folded
-		//and returns false if their bid does not match the stakes
-		//to determine if the bidding round is over
+		//and returns true if their bid does not match the stakes
+		//to determine if the bidding round is over. This also checks
+		//to see if there is any player who has not folded and has not bet yet.
 		for (Player currentPlayer : players) {
+			if (currentPlayer.isBetting && !currentPlayer.hasFolded)
+				return true;
 			if (currentPlayer.currentBid != stakes && !currentPlayer.hasFolded) {
 				return true;
 			}

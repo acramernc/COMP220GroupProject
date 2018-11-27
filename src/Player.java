@@ -17,6 +17,7 @@ public class Player {
 	public boolean hasFolded;
 	private Scanner scan;
 	public boolean isComp;
+	public boolean isBetting;
 	
 	/**
 	 * Creates a blank player with no cards or money
@@ -29,6 +30,7 @@ public class Player {
 		isDealer = false;
 		scan = new Scanner(System.in);
 		isComp = false;
+		isBetting = true;
 	}
 	
 	/**
