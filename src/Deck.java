@@ -8,7 +8,7 @@ import java.util.LinkedList;
  */
 public class Deck {
 	private LinkedList<Card> cards;
-	private final int highestCardValue = 13;
+	private final int highestCardValue = 14;
 	private final String[] suit = {"Hearts","Spades","Clubs","Diamonds"};
 	
 	/**
@@ -18,7 +18,7 @@ public class Deck {
 	public Deck() {
 		cards = new LinkedList<Card>();
 		//Fill deck with cards
-		for (int i = 1; i <= highestCardValue; i++) {
+		for (int i = 2; i <= highestCardValue; i++) {
 			for (int j = 0; j < suit.length; j++) {
 				Card c = new Card(i, suit[j]);
 				cards.add(c);

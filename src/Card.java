@@ -35,26 +35,36 @@ public class Card {
 	 * @return filepath of card image
 	 */
 	public String getImage() {
-		return "../CardImages/" + this.value + this.suitChar + ".png";
+		//Adjust Ace to be worth 14
+		if (this.value == 14) {
+			return "../CardImages/1" + this.suitChar + ".png";
+		}
+		else {
+			return "../CardImages/" + this.value + this.suitChar + ".png";
+		}
 	}
 	
 	public String toString() {
 		String name = "";
-		if (this.value == 1) {
-			name = "Ace";
+		
+		switch (this.value) {
+	        case 11: 
+	        	name = "Jack";
+	            break;
+	        case 12:  
+	        	name = "Queen";
+	            break;
+	        case 13:  
+	        	name = "King";
+	            break;
+	        case 14:  
+	        	name = "Ace";
+	        	break;
+	        default: 
+	        	name = String.valueOf(this.value);
+	            break;
 		}
-		else if (this.value == 11){
-			name = "Jack";
-		}
-		else if (this.value == 12){
-			name = "Queen";
-		}
-		else if (this.value == 13){
-			name = "King";
-		}
-		else {
-			name = String.valueOf(this.value);
-		}
+
 		return name + " of " + this.suit;
 	}
 	
