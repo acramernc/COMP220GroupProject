@@ -1,5 +1,8 @@
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.TreeMap;
 
 public class Score {
 	private LinkedList<Player> playerList;
@@ -13,16 +16,56 @@ public class Score {
 	 * @return player that won
 	 */
 	public Player getWinner() {
-		
+		TreeMap<Integer, HashSet<Player>> playerRank = new TreeMap<Integer, HashSet<Player>>();
+		int tempRank;
+		for(Player p: playerList) {
+			tempRank = rankHand(p);
+			if(playerRank.containsKey(tempRank)) {
+				HashSet<Player> temp = new HashSet<Player>(playerRank.get(tempRank));
+				temp.add(p);
+				playerRank.put(tempRank, temp);
+			}
+			else {
+				HashSet<Player> temp = new HashSet<Player>();
+				temp.add(p);
+				playerRank.put(tempRank, temp);
+			}
+			
+		}
+		Iterator<Player> iter = playerRank.get(playerRank.firstKey()).iterator();
+		if(playerRank.get(playerRank.firstKey()).size()==1) {
+			return iter.next();
+		}
+		else {
+			Player winner = iter.next();
+			Player tempPlayer;
+			
+			while (iter.hasNext()) {
+				tempPlayer = iter.next();
+				if(handHigh(winner)<handHigh(tempPlayer)) {
+					winner = tempPlayer;
+				}
+			}
+			return winner;
+		}
 	}
 	/**
-	 * ranks hand based on rankings specified in handRanks.txt
+	 * ranks hand based on rankings specified in handRanks.txt (royal flush = 1 ect)
 	 * @return integer ranking of hand
 	 */
-	public int rankHand() {//maybe dont need this
+	public int rankHand(Player p) {
 		
 	}
 	
+	/**
+	 * 
+	 * @param p
+	 * @return value of the highest card within the hand (not including cards not being played)
+	 */
+	public int handHigh(Player p) {
+		
+	}
+	//TODO: change method returns to the value of the highest card in the hand or 0 if it would return false
 	/**
 	 * 
 	 * @return True if is a Royal Flush
