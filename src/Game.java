@@ -83,15 +83,31 @@ public class Game {
 				
 		System.out.println("Let's begin the first betting round. The small and big blinds have been assigned.");
 		bet();
-		
+		//Stops the hand and gives money to winner if everyone else has folded.
+		if (checkWinner()) {
+			return;
+		}
 		for (int i = 0; i < 3; i++) {
 			commCards.add(deck.draw());
 		}
 		bet();
+		//Stops the hand and gives money to winner if everyone else has folded.
+		if (checkWinner()) {
+			return;
+		}
 		commCards.add(deck.draw());
 		bet();
+		//Stops the hand and gives money to winner if everyone else has folded.
+		if (checkWinner()) {
+			return;
+		}
 		commCards.add(deck.draw());
 		bet();
+		//Stops the hand and gives money to winner if everyone else has folded.
+		if (checkWinner()) {
+			return;
+		}
+		getWinner();
 	}
 
 	
@@ -106,27 +122,40 @@ public class Game {
 
 			current = nextPlayer();
 			
-			//Only does this for human players
-			if (!current.isComp) {
-				for (Player currentPlayer : players) {
-					System.out.println(currentPlayer.name + " has bid " + currentPlayer.currentBid);
-				}
-				
-				//Will only show community cards to human players if there are community cards.
-				if (commCards.size() != 0) {
-					String s = "";					
-					for (int i = 0; i < commCards.size(); i++) {
-						if (i == commCards.size() - 1) {
-							s += commCards.get(i).toString();
-						} else 
-							s += commCards.get(i).toString() + ", ";
-					}
-					System.out.println("The community cards are " + s);
-				}
-			}
 			
-			stakes = current.getBid(stakes, getPot(), getCommCards());
+			//Skips current player if they have folded
+			if (!current.hasFolded) {
+				//Only does this for human players
+				if (!current.isComp) {
+					for (Player currentPlayer : players) {
+						if (!currentPlayer.hasFolded) {
+						System.out.println(currentPlayer.name + " has bid " + currentPlayer.currentBid);
+						} else {
+							System.out.println(currentPlayer.name + " has folded");
+						}
+					}
+					
+					//Will only show community cards to human players if there are community cards.
+					if (commCards.size() != 0) {
+						String s = "";					
+						for (int i = 0; i < commCards.size(); i++) {
+							if (i == commCards.size() - 1) {
+								s += commCards.get(i).toString();
+							} else 
+								s += commCards.get(i).toString() + ", ";
+						}
+						System.out.println("The community cards are " + s);
+					}
+				}
+			
+				stakes = current.getBid(stakes, getPot(), getCommCards());
+				current.isBetting = false;
+			}
 		} while (isBetting());
+		
+		for (Player currentPlayer : players) {
+			currentPlayer.isBetting = true;
+		}
 	}
 	
 	
@@ -137,9 +166,12 @@ public class Game {
 	private boolean isBetting() {
 		
 		//Goes through each player, skipping ones who have folded
-		//and returns false if their bid does not match the stakes
-		//to determine if the bidding round is over
+		//and returns true if their bid does not match the stakes
+		//to determine if the bidding round is over. This also checks
+		//to see if there is any player who has not folded and has not bet yet.
 		for (Player currentPlayer : players) {
+			if (currentPlayer.isBetting && !currentPlayer.hasFolded)
+				return true;
 			if (currentPlayer.currentBid != stakes && !currentPlayer.hasFolded) {
 				return true;
 			}
@@ -190,6 +222,67 @@ public class Game {
 		Player out = players.peekFirst();
 		players.offer(players.removeFirst());
 		return out;
+	}
+	
+	/**
+	 * 
+	 * @return true if there is only one player remaining
+	 */
+	private boolean onePlayerRemaining() {
+		int numPlayersActive = 0;
+		for (Player currentPlayer : players) {
+			if (!currentPlayer.hasFolded)
+				numPlayersActive++;
+		}
+		if (numPlayersActive == 1)
+			return true;
+		else return false;
+	}
+	
+	/**
+	 * 
+	 * @return true if the hand is over early
+	 */
+	private boolean checkWinner() {
+		Player winner = null;
+		if (onePlayerRemaining()) {
+			for (Player currentPlayer : players) {
+				if (!currentPlayer.hasFolded)
+					winner = currentPlayer;
+			}
+			winner.money += getPot();
+			return true;
+		} else return false;
+	}
+	
+	/**
+	 * Determines winner of a hand at the end of the round and gives them the money
+	 */
+	private void getWinner() {
+		Player winner = null;
+		Score score = new Score(players);
+		winner = score.getWinner();
+		winner.money += getPot();
+	}
+	
+	/**
+	 * Resets all of the players in order to play another hand.
+	 */
+	public void reset() {
+		//This sorts the LinkedList of players so that the dealer is first in 
+		//queue in order to assign the small and big blinds
+		for (int i = 0; i < players.size(); i++) {
+			if (!players.get(i).isDealer) {
+				players.add(players.remove(i));
+				i--;
+			} else {
+				break;
+			}
+		}
+		//Sets the next player in line to be the dealer
+		players.peek().isDealer = false;
+		players.add(players.remove(0));
+		players.peek().isDealer = true;
 	}
 	
 }
