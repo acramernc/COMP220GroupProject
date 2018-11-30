@@ -1,5 +1,7 @@
 import java.awt.EventQueue;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -16,9 +18,13 @@ import javax.swing.JSlider;
 
 import javax.swing.JButton;
 
-public class GameScreen {
+public class GameScreen implements ActionListener {
 
 	private JFrame frame;
+	JButton button;
+	JButton button_1;
+	JButton button_2;
+	JButton button_3;
 
 	/**
 	 * Launch the application.
@@ -34,6 +40,7 @@ public class GameScreen {
 				}
 			}
 		});
+		System.out.println("Done");
 	}
 
 	/**
@@ -46,7 +53,7 @@ public class GameScreen {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(){
 		frame = new JFrame();
 		frame.setBounds(100, 100, 910, 650);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -189,19 +196,23 @@ public class GameScreen {
 		label_6.setBounds(541, 218, 47, 14);
 		frame.getContentPane().add(label_6);
 		
-		JButton button = new JButton("Fold");
+		button = new JButton("Fold");
+		button.addActionListener(this);
 		button.setBounds(600, 447, 89, 35);
 		frame.getContentPane().add(button);
 		
-		JButton button_1 = new JButton("Check");
+		button_1 = new JButton("Check");
+		button_1.addActionListener(this);
 		button_1.setBounds(298, 446, 89, 35);
 		frame.getContentPane().add(button_1);
 		
-		JButton button_2 = new JButton("Call");
+		button_2 = new JButton("Call");
+		button_2.addActionListener(this);
 		button_2.setBounds(499, 446, 89, 35);
 		frame.getContentPane().add(button_2);
 		
-		JButton button_3 = new JButton("Raise");
+		button_3 = new JButton("Raise");
+		button_3.addActionListener(this);
 		button_3.setBounds(199, 447, 89, 35);
 		frame.getContentPane().add(button_3);
 		
@@ -210,5 +221,25 @@ public class GameScreen {
 		slider.setBounds(341, 401, 200, 48);
 		frame.getContentPane().add(slider);
 		
+		
+		
 	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == button) {
+			System.out.println("Fold");
+		}
+		else if (e.getSource() == button_1) {
+			System.out.println("Check");
+		}
+		else if (e.getSource() == button_2) {
+			System.out.println("Call");
+		}
+		else if (e.getSource() == button_3) {
+			System.out.println("Raise");
+		}
+		
+	}
+
 }
