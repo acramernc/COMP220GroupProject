@@ -7,12 +7,14 @@ public class ComputerOpponent extends Player {
 									"Chuck", "Logan", "Craig"};
 
 	boolean hasPair;
+	boolean sameSuit;
 	
 	public ComputerOpponent() {
 		
 		super(names[(int)Math.floor(Math.random() * names.length)]);
 		isComp = true;
 		hasPair = false;
+		sameSuit = false;
 	}
 	
 	
@@ -54,6 +56,7 @@ public class ComputerOpponent extends Player {
 			//otherwise
 			if (hand.get(0).getSuit() == hand.get(1).getSuit()) {
 				prob += 6;
+				sameSuit = true;
 			} else {
 				prob -= 4;
 			}
@@ -80,14 +83,37 @@ public class ComputerOpponent extends Player {
 				
 				//Goes through cards in hand
 				for (Card currentHand : hand) {
+					if (currentComm.getValue() == currentHand.getValue()) {
+						prob += 15;
+						if (hasPair) {
+							prob += 20;
+						}
+					} else {
+						prob -= 5;
+					}
+					if (currentComm.getSuit() == currentHand.getSuit()) {
+						prob += 5;
+						if (sameSuit) {
+							prob += 5;
+						}
+					} else {
+						prob -= 3;
+					}
 				}
-			}
-			if (stakes == currentBid) {
-				check();
-				return stakes;
-			} else {
-				call(stakes);
-				return stakes;
+				
+				//Goes through each card in hand,increases probability if value is higher, 
+				//decreases it otherwise
+				for (Card card : hand) {
+					if (card.getValue() < 8)
+						prob -= 8;
+					if (card.getValue() < 5)
+						prob -= 4;
+					if (card.getValue() > 10)
+						prob += 15;
+					if (card.getValue() > 12)
+						prob += 5;
+				}
+				
 			}
 		}
 		
