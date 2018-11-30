@@ -37,10 +37,10 @@ public class Card {
 	public String getImage() {
 		//Adjust Ace to be worth 14
 		if (this.value == 14) {
-			return "../CardImages/1" + this.suitChar + ".png";
+			return ".\\CardImages\\1" + this.suitChar + ".png";
 		}
 		else {
-			return "../CardImages/" + this.value + this.suitChar + ".png";
+			return ".\\CardImages\\" + this.value + this.suitChar + ".png";
 		}
 	}
 	
