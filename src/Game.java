@@ -260,7 +260,7 @@ public class Game {
 	 */
 	private void getWinner() {
 		Player winner = null;
-		Score score = new Score(players);
+		Score score = new Score(players, commCards);
 		winner = score.getWinner();
 		winner.money += getPot();
 	}
