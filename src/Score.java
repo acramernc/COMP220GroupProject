@@ -4,12 +4,32 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.TreeMap;
 
+/*
+ * Known Issues:
+ * anything lower than 4 of a kind is not checked
+ * royal flush doesnt follow the rules correctly
+ * if there is a tie the method only returns null instead of showing which players tied
+ * no support for more than 2 people with the same hand
+ * tie only checks highest tiebreaker card and will return a tie without checking anymore cards
+ * player needs .equals method for this to function properly
+ */
+/**
+ * 
+ * @author CRAMERAM17
+ *
+ */
 public class Score {
-	private LinkedList<Player> playerList;
-	//private ArrayList<Card> commCards;
+	private LinkedList<Player> playerList;//list of players
+	private ArrayList<Card> coCards;//community cards
 	
-	public Score(LinkedList<Player> players) {
+	/**
+	 * 
+	 * @param players list of all the players
+	 * @param cCards list of community cards
+	 */
+	public Score(LinkedList<Player> players, ArrayList<Card> cCards) {
 		playerList = players; //Intentionally shallow copy
+		coCards = cCards; //also Intentionally shallow
 	}
 	/**
 	 * Runs through the list of players and returns the player who's hand won
@@ -32,18 +52,32 @@ public class Score {
 			}
 			
 		}
-		Iterator<Player> iter = playerRank.get(playerRank.firstKey()).iterator();
-		if(playerRank.get(playerRank.firstKey()).size()==1) {
+		HashSet<Player> tempHash = playerRank.get(playerRank.firstKey());
+		Iterator<Player> iter = tempHash.iterator();
+		if(tempHash.size()==1) {
 			return iter.next();
 		}
 		else {
 			Player winner = iter.next();
 			Player tempPlayer;
+			boolean isTie = false;
 			
 			while (iter.hasNext()) {
 				tempPlayer = iter.next();
+				if(handHigh(winner) == handHigh(tempPlayer)) {
+					isTie = true;
+				}
 				if(handHigh(winner)<handHigh(tempPlayer)) {
 					winner = tempPlayer;
+				}
+			}
+			if(isTie) {
+				iter = tempHash.iterator();//resets iterator to find tie
+				tempPlayer = iter.next();
+				while(iter.hasNext()) {
+					if(handHigh(winner) == handHigh(tempPlayer) && !winner.equals(tempPlayer)) {
+						return null;//this is bad but wesley wants it 
+					}
 				}
 			}
 			return winner;
@@ -54,23 +88,101 @@ public class Score {
 	 * @return integer ranking of hand
 	 */
 	public int rankHand(Player p) {
-		
+		if (isRFlush(p.hand, coCards)) {
+			return 1;
+		}
+		if(isSFlush(p.hand, coCards) != 0) {
+			return 2;
+		}
+		if(isFour(p.hand, coCards) != 0) {
+			return 3;
+		}
+		if(isFHouse(p.hand, coCards) != 0) {
+			return 4;
+		}
+		if(isFlush(p.hand, coCards) != 0) {
+			return 5;
+		}
+		if(isStraight(p.hand, coCards) != 0) {
+			return 6;
+		}
+		if(isThree(p.hand, coCards) != 0) {
+			return 7;
+		}
+		if(is2Pair(p.hand, coCards) != 0) {
+			return 8;
+		}
+		if(isPair(p.hand, coCards) != 0) {
+			return 9;
+		}
+		return 10;
 	}
 	
 	/**
 	 * 
 	 * @param p
-	 * @return value of the highest card within the hand (not including cards not being played)
+	 * @return most valuable card within the hand (not including cards not being played)
 	 */
 	public int handHigh(Player p) {
+		if (isRFlush(p.hand, coCards)) {
+			return 14;//ace
+		}
+		if(isSFlush(p.hand, coCards) != 0) {
+			return isSFlush(p.hand, coCards);
+		}
+		if(isFour(p.hand, coCards) != 0) {
+			return isFour(p.hand, coCards);
+		}
+		if(isFHouse(p.hand, coCards) != 0) {
+			return isFHouse(p.hand, coCards);
+		}
+		if(isFlush(p.hand, coCards) != 0) {
+			return isFlush(p.hand, coCards);
+		}
+		if(isStraight(p.hand, coCards) != 0) {
+			return isStraight(p.hand, coCards);
+		}
+		if(isThree(p.hand, coCards) != 0) {
+			return isThree(p.hand, coCards);
+		}
+		if(is2Pair(p.hand, coCards) != 0) {
+			return is2Pair(p.hand, coCards);
+		}
+		if(isPair(p.hand, coCards) != 0) {
+			return isPair(p.hand, coCards);
+		}
+		//High card
+		int highCard = 0;
+		for(Card c: p.hand) {
+			if(c.getValue() > highCard)
+				highCard = c.getValue();
+		}
+		for(Card c: coCards) {
+			if(c.getValue() > highCard)
+				highCard = c.getValue();
+		}
+		return highCard;
+		
 		
 	}
-	//TODO: change method returns to the value of the highest card in the hand or 0 if it would return false
+	
+	//currently unnessecary may be nessecary if we eventually iterate through cards properly to resolve ties
+	public Player tieBreaker(Player p1, Player p2) {
+		if(handHigh(p1) > handHigh(p2)) {
+			return p1;
+		}
+		if(handHigh(p1) < handHigh(p2)) {
+			return p2;
+		}
+		return null;
+	}
+	
 	/**
 	 * 
 	 * @return True if is a Royal Flush
 	 */
 	public boolean isRFlush(ArrayList<Card> hand, ArrayList<Card> commCards) {
+		//TODO this needs to be changed such that the hole cards dont need to be included
 		//Checks that the hole cards are the same suit
 		if(hand.get(0).getSuit() != hand.get(1).getSuit())
 			return false;
@@ -125,14 +237,14 @@ public class Score {
 	
 	/**
 	 *   
-	 * @return True if is a Straight Flush
+	 * @return value of the highest card if is a Straight Flush or 0 if it is not
 	 */
-	public boolean isSFlush(ArrayList<Card> hand, ArrayList<Card> commCards) {
-		boolean isValid = false;
+	public int isSFlush(ArrayList<Card> hand, ArrayList<Card> commCards) {
+		boolean isValid = false;//TODO this needs to be changed such that the hole cards dont need to be included
 		//int max= 14;
 		//Checks that the hole cards are the same suit
 		if(hand.get(0).getSuit() != hand.get(1).getSuit())
-			return false;
+			return 0;
 		
 		char suit = hand.get(0).getSuit();//suit for the straight flush
 		
@@ -151,38 +263,9 @@ public class Score {
 			isValid = isNumHigh(hand, commCards, suit, highCard);
 		}
 		if(isValid)
-			return true;
+			return highCard;
 		else 
-			return false;
-		
-		/*TODO remove this
-		if(highCard < 6)//straight must have a high card of at least 6 eg. 6,5,4,3,2
-			return false;
-		
-		//Requirements for Straight flush
-		boolean has1Low = false; //has card that is 1 lower than highCard
-		boolean has2Low = false;
-		boolean has3Low = false;
-		boolean has4Low = false;
-		
-		//Check for 1low
-		while(!has1Low) {
-			for(Card c: hand) {
-				if(c.getValue() == highCard-1)
-					has1Low = true;
-			}
-			for(Card c: commCards) {
-				if(c.getValue() == highCard-1 && c.getSuit() == suit)
-					has1Low = true;
-			}
-			if(!has1Low) {
-				max = highCard;
-				highCard = findHighest(hand, commCards, suit, max);
-			}
-		}*/
-		
-		
-		
+			return 0;
 	}
 	
 	/**
@@ -192,7 +275,7 @@ public class Score {
 	 * @param suit suit of the hand
 	 * @param highCard
 	 * @return true if it is a valid highcard
-	 */
+	 *///used in SFlush
 	public boolean isNumHigh(ArrayList<Card> hand, ArrayList<Card> commCards, char suit, int highCard) {
 		if(highCard < 6)
 			return false;
@@ -264,7 +347,7 @@ public class Score {
 	 * @param commCards
 	 * @param suit
 	 * @return
-	 */
+	 *///Used in sFlush maybe??
 	public int findHighest(ArrayList<Card> hand, ArrayList<Card> commCards, char suit) {//TODO figure out if this is used
 		int highCard = 0;
 		for(Card c: hand) {
@@ -280,14 +363,12 @@ public class Score {
 	
 	/**
 	 * 
-	 * @return True if is Four of a Kind
+	 * @return value of the card if is Four of a Kind or 0 if its not
 	 */
-	public boolean isFour(ArrayList<Card> hand, ArrayList<Card> commCards) {
+	public int isFour(ArrayList<Card> hand, ArrayList<Card> commCards) {
 		//TODO finish
 		//for each card find if there are three others of the same 
 		//make sure that at least one of the four is from the hand
-		boolean hasFour = false;//will be true if there are 4 cards of the same value in all
-		int value =0;//holds the value of the four of a kind
 		//Create an arraylist of all the possible cards for easier checking
 		ArrayList<Card> all = new ArrayList<Card>();
 		for(Card c: hand) {
@@ -297,6 +378,7 @@ public class Score {
 			all.add(c);
 		}
 		
+		//Brute force iterates through the list finding all value matches
 		for(Card c: all) {
 			for(Card d: all) {
 				if(c.getValue() == d.getValue() && c.getSuit() != d.getSuit()) {
@@ -304,18 +386,40 @@ public class Score {
 						if(e.getValue() == d.getValue() && e.getSuit() != d.getSuit() && c.getSuit() != e.getSuit()) {
 							for(Card f: all) {
 								if(f.getValue() == d.getValue() && f.getSuit() != d.getSuit() && c.getSuit() != f.getSuit() && e.getSuit()!=f.getSuit()) {
-									hasFour = true;
-									value = f.getValue();
+									return f.getValue();
 								}}}}}}}
-		if(!hasFour)
-			return false;
+		return 0;
 		
-		for(Card c: hand) {
-			if (c.getValue()== value)
-				return true;//TODO check that this follows rules
-		}
-		return false;
 		
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @return 0 if not a full house: otherwise return value of the three of a kind
+	 */
+	public int isFHouse(ArrayList<Card> hand, ArrayList<Card> commCards) {
+		return 0;//TODO finish full house
+	}
+	
+	public int isFlush(ArrayList<Card> hand, ArrayList<Card> commCards) {
+		return 0;//TODO finish flush
+	}
+	
+	public int isStraight(ArrayList<Card> hand, ArrayList<Card> commCards) {
+		return 0;//TODO finish straight
+	}
+	
+	public int isThree(ArrayList<Card> hand, ArrayList<Card> commCards) {
+		return 0;//TODO finish three of a kind
+	}
+	
+	public int is2Pair(ArrayList<Card> hand, ArrayList<Card> commCards) {
+		return 0;//TODO finish two pair
+	}
+	
+	public int isPair(ArrayList<Card> hand, ArrayList<Card> commCards) {
+		return 0;//TODO finish pair
 	}
 	
 	public boolean isSameSuit(Card one, Card two) {
