@@ -19,12 +19,19 @@ import javax.swing.JSlider;
 import javax.swing.JButton;
 
 public class GameScreen implements ActionListener {
-
-	private JFrame frame;
-	JButton button;
-	JButton button_1;
-	JButton button_2;
-	JButton button_3;
+	
+    public static JFrame frame;
+    
+    public static JLabel player2Card1, player2Card2, player3Card1, player3Card2, player1Card1, player1Card2, 
+    	yourCard1, yourCard2, dealerCard1, dealerCard2, dealerCard3, dealerCard4,
+    	dealerCard5, betLabel, potLabel;
+    
+    public static JLabel player1Label, player2Label, player3Label, yourLabel, dealerLabel, yourPot,
+    	sliderLabel, player1Pot, player2Pot, player3Pot, potAmountLabel;
+    
+	public static JButton fold_button, check_button, call_button, raise_button, bet_button;
+	
+	public static JSlider slider;
 
 	/**
 	 * Launch the application.
@@ -73,151 +80,151 @@ public class GameScreen implements ActionListener {
 		//Player 2's Cards
 		
 		frame.getContentPane().setLayout(null);
-		JLabel lblNewLabel = new JLabel(icon);
-		lblNewLabel.setBounds(448, 0, 83, 114);
-		frame.getContentPane().add(lblNewLabel);
+		player2Card1 = new JLabel(icon);
+		player2Card1.setBounds(448, 0, 83, 114);
+		frame.getContentPane().add(player2Card1);
 		
 		
-		JLabel lblNewLabel_1 = new JLabel(icon);
-		lblNewLabel_1.setBounds(355, 0, 83, 114);
-		frame.getContentPane().add(lblNewLabel_1);
+		player2Card2 = new JLabel(icon);
+		player2Card2.setBounds(355, 0, 83, 114);
+		frame.getContentPane().add(player2Card2);
 		
 		//Player 3's Cards
 		
-		JLabel lblNewLabel_2 = new JLabel(icon);
-		lblNewLabel_2.setBounds(712, 264, 83, 114);
-		frame.getContentPane().add(lblNewLabel_2);
+		player3Card1 = new JLabel(icon);
+		player3Card1.setBounds(712, 264, 83, 114);
+		frame.getContentPane().add(player3Card1);
 		
-		JLabel lblNewLabel_3 = new JLabel(icon);
-		lblNewLabel_3.setBounds(805, 264, 83, 114);
-		frame.getContentPane().add(lblNewLabel_3);
+		player3Card2 = new JLabel(icon);
+		player3Card2.setBounds(805, 264, 83, 114);
+		frame.getContentPane().add(player3Card2);
 		
 		//Player 1's Cards
 		
-		JLabel lblNewLabel_4 = new JLabel(icon);
-		lblNewLabel_4.setBounds(10, 264, 83, 114);
-		frame.getContentPane().add(lblNewLabel_4);
+		player1Card1 = new JLabel(icon);
+		player1Card1.setBounds(10, 264, 83, 114);
+		frame.getContentPane().add(player1Card1);
 		
-		JLabel lblNewLabel_5 = new JLabel(icon);
-		lblNewLabel_5.setBounds(103, 264, 83, 114);
-		frame.getContentPane().add(lblNewLabel_5);
+		player1Card2 = new JLabel(icon);
+		player1Card2.setBounds(103, 264, 83, 114);
+		frame.getContentPane().add(player1Card2);
 		
 		//Your Cards
 		
-		JLabel lblNewLabel_6 = new JLabel(icon);
-		lblNewLabel_6.setBounds(355, 492, 83, 114);
-		frame.getContentPane().add(lblNewLabel_6);
+		yourCard1 = new JLabel(icon);
+		yourCard1.setBounds(355, 492, 83, 114);
+		frame.getContentPane().add(yourCard1);
 		
-		JLabel lblNewLabel_7 = new JLabel(icon);
-		lblNewLabel_7.setBounds(448, 492, 83, 114);
-		frame.getContentPane().add(lblNewLabel_7);
+		yourCard2 = new JLabel(icon);
+		yourCard2.setBounds(448, 492, 83, 114);
+		frame.getContentPane().add(yourCard2);
 		
 		//Dealer's Cards
 		
-		JLabel lblNewLabel_8 = new JLabel(icon);
-		lblNewLabel_8.setBounds(225, 264, 83, 114);
-		frame.getContentPane().add(lblNewLabel_8);
+		dealerCard1 = new JLabel(icon);
+		dealerCard1.setBounds(225, 264, 83, 114);
+		frame.getContentPane().add(dealerCard1);
 		
-		JLabel lblNewLabel_9 = new JLabel(icon);
-		lblNewLabel_9.setBounds(320, 264, 83, 114);
-		frame.getContentPane().add(lblNewLabel_9);
+		dealerCard2 = new JLabel(icon);
+		dealerCard2.setBounds(320, 264, 83, 114);
+		frame.getContentPane().add(dealerCard2);
 		
-		JLabel lblNewLabel_10 = new JLabel(icon);
-		lblNewLabel_10.setBounds(412, 264, 83, 114);
-		frame.getContentPane().add(lblNewLabel_10);
+		dealerCard3 = new JLabel(icon);
+		dealerCard3.setBounds(412, 264, 83, 114);
+		frame.getContentPane().add(dealerCard3);
 		
-		JLabel lblNewLabel_11 = new JLabel(icon);
-		lblNewLabel_11.setBounds(504, 264, 83, 114);
-		frame.getContentPane().add(lblNewLabel_11);
+		dealerCard4 = new JLabel(icon);
+		dealerCard4.setBounds(504, 264, 83, 114);
+		frame.getContentPane().add(dealerCard4);
 		
-		JLabel lblNewLabel_12 = new JLabel(icon);
-		lblNewLabel_12.setBounds(596, 264, 83, 114);
-		frame.getContentPane().add(lblNewLabel_12);
+		dealerCard5 = new JLabel(icon);
+		dealerCard5.setBounds(596, 264, 83, 114);
+		frame.getContentPane().add(dealerCard5);
 		
 		//Labels
 		
-		JLabel lblPlayer = new JLabel("Player 2");
-		lblPlayer.setBounds(421, 125, 47, 14);
-		frame.getContentPane().add(lblPlayer);
+		player2Label = new JLabel("Player 2");
+		player2Label.setBounds(421, 125, 47, 14);
+		frame.getContentPane().add(player2Label);
 		
-		JLabel lblPlayer_1 = new JLabel("Player 1");
-		lblPlayer_1.setBounds(75, 389, 47, 14);
-		frame.getContentPane().add(lblPlayer_1);
+		player1Label = new JLabel("Player 1");
+		player1Label.setBounds(75, 389, 47, 14);
+		frame.getContentPane().add(player1Label);
 		
-		JLabel lblPlayer_2 = new JLabel("Player 3");
-		lblPlayer_2.setBounds(779, 389, 47, 14);
-		frame.getContentPane().add(lblPlayer_2);
+		player3Label = new JLabel("Player 3");
+		player3Label.setBounds(779, 389, 47, 14);
+		frame.getContentPane().add(player3Label);
 
-		JLabel lblDealer = new JLabel("Dealer");
-		lblDealer.setBounds(426, 389, 105, 14);
-		frame.getContentPane().add(lblDealer);
+		dealerLabel = new JLabel("Dealer");
+		dealerLabel.setBounds(426, 389, 105, 14);
+		frame.getContentPane().add(dealerLabel);
 		
-		JButton btnPlaceBet = new JButton("Place Bet");
-		btnPlaceBet.setBounds(397, 447, 89, 35);
-		frame.getContentPane().add(btnPlaceBet);
+		bet_button = new JButton("Place Bet");
+		bet_button.setBounds(397, 447, 89, 35);
+		frame.getContentPane().add(bet_button);
 		
-		JLabel lblYou = new JLabel("You");
-		lblYou.setBounds(318, 548, 47, 14);
-		frame.getContentPane().add(lblYou);
+		yourLabel = new JLabel("You");
+		yourLabel.setBounds(318, 548, 47, 14);
+		frame.getContentPane().add(yourLabel);
 		
-		JLabel label = new JLabel("$150");
-		label.setBounds(541, 548, 47, 14);
-		frame.getContentPane().add(label);
+		yourPot = new JLabel("$150");
+		yourPot.setBounds(541, 548, 47, 14);
+		frame.getContentPane().add(yourPot);
 		
-		JLabel label_1 = new JLabel("$50");
-		label_1.setBounds(551, 417, 47, 14);
-		frame.getContentPane().add(label_1);
+		sliderLabel = new JLabel("$50");
+		sliderLabel.setBounds(551, 417, 47, 14);
+		frame.getContentPane().add(sliderLabel);
 		
-		JLabel label_2 = new JLabel("$150");
-		label_2.setBounds(431, 150, 73, 14);
-		frame.getContentPane().add(label_2);
+		player2Pot = new JLabel("$150");
+		player2Pot.setBounds(431, 150, 73, 14);
+		frame.getContentPane().add(player2Pot);
 		
-		JLabel label_3 = new JLabel("$150");
-		label_3.setBounds(85, 414, 47, 14);
-		frame.getContentPane().add(label_3);
+		player1Pot = new JLabel("$150");
+		player1Pot.setBounds(85, 414, 47, 14);
+		frame.getContentPane().add(player1Pot);
 		
-		JLabel label_4 = new JLabel("$150");
-		label_4.setBounds(789, 414, 47, 14);
-		frame.getContentPane().add(label_4);
+		player3Pot = new JLabel("$150");
+		player3Pot.setBounds(789, 414, 47, 14);
+		frame.getContentPane().add(player3Pot);
 		
-		JLabel lblNewLabel_13 = new JLabel("Bet");
-		lblNewLabel_13.setBounds(318, 193, 47, 14);
-		frame.getContentPane().add(lblNewLabel_13);
+		betLabel = new JLabel("Bet");
+		betLabel.setBounds(318, 193, 47, 14);
+		frame.getContentPane().add(betLabel);
 		
-		JLabel lblNewLabel_14 = new JLabel("Pot");
-		lblNewLabel_14.setBounds(541, 193, 47, 14);
-		frame.getContentPane().add(lblNewLabel_14);
+		potLabel = new JLabel("Pot");
+		potLabel.setBounds(541, 193, 47, 14);
+		frame.getContentPane().add(potLabel);
 		
-		JLabel label_5 = new JLabel("$10");
-		label_5.setBounds(318, 218, 47, 14);
-		frame.getContentPane().add(label_5);
+		betLabel = new JLabel("$10");
+		betLabel.setBounds(318, 218, 47, 14);
+		frame.getContentPane().add(betLabel);
 		
-		JLabel label_6 = new JLabel("$100");
-		label_6.setBounds(541, 218, 47, 14);
-		frame.getContentPane().add(label_6);
+		potAmountLabel = new JLabel("$100");
+		potAmountLabel.setBounds(541, 218, 47, 14);
+		frame.getContentPane().add(potAmountLabel);
 		
-		button = new JButton("Fold");
-		button.addActionListener(this);
-		button.setBounds(600, 447, 89, 35);
-		frame.getContentPane().add(button);
+		fold_button = new JButton("Fold");
+		fold_button.addActionListener(this);
+		fold_button.setBounds(600, 447, 89, 35);
+		frame.getContentPane().add(fold_button);
 		
-		button_1 = new JButton("Check");
-		button_1.addActionListener(this);
-		button_1.setBounds(298, 446, 89, 35);
-		frame.getContentPane().add(button_1);
+		check_button = new JButton("Check");
+		check_button.addActionListener(this);
+		check_button.setBounds(298, 446, 89, 35);
+		frame.getContentPane().add(check_button);
 		
-		button_2 = new JButton("Call");
-		button_2.addActionListener(this);
-		button_2.setBounds(499, 446, 89, 35);
-		frame.getContentPane().add(button_2);
+		call_button = new JButton("Call");
+		call_button.addActionListener(this);
+		call_button.setBounds(499, 446, 89, 35);
+		frame.getContentPane().add(call_button);
 		
-		button_3 = new JButton("Raise");
-		button_3.addActionListener(this);
-		button_3.setBounds(199, 447, 89, 35);
-		frame.getContentPane().add(button_3);
+		raise_button = new JButton("Raise");
+		raise_button.addActionListener(this);
+		raise_button.setBounds(199, 447, 89, 35);
+		frame.getContentPane().add(raise_button);
 		
 		//Betting Slider
-		JSlider slider = new JSlider();
+		slider = new JSlider();
 		slider.setBounds(341, 401, 200, 48);
 		frame.getContentPane().add(slider);
 		
@@ -227,16 +234,16 @@ public class GameScreen implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == button) {
+		if (e.getSource() == fold_button) {
 			System.out.println("Fold");
 		}
-		else if (e.getSource() == button_1) {
+		else if (e.getSource() == check_button) {
 			System.out.println("Check");
 		}
-		else if (e.getSource() == button_2) {
+		else if (e.getSource() == call_button) {
 			System.out.println("Call");
 		}
-		else if (e.getSource() == button_3) {
+		else if (e.getSource() == raise_button) {
 			System.out.println("Raise");
 		}
 		
