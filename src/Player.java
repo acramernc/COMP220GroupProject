@@ -138,4 +138,24 @@ public class Player {
 		}
 		return output;
 	}
+	@Override
+	public boolean equals(Object obj) {
+		if(this == obj) {
+			return true;
+		}
+		if(!(obj instanceof Player)) {
+			return false;
+		}
+		
+		Player p = (Player) obj;
+		if(p.money == this.money) {
+			if(p.name.equals(this.name)) {
+				if(p.currentBid == this.currentBid) {
+					if(p.isDealer==this.isDealer) {
+						if(p.hasFolded==this.hasFolded) {
+							if(p.isBetting == this.isBetting) {
+								return true;
+							}}}}}}
+		return false;
+	}
 }
