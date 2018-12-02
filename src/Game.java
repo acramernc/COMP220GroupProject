@@ -86,7 +86,7 @@ public class Game {
 		bigBlind.currentBid += 50;
 		stakes = 50;
 				
-		System.out.println("Let's begin the first betting round. The small and big blinds have been assigned.");
+		System.out.println("Let's begin the first betting round. The small and big blinds have been assigned.\n");
 		bet();
 		//Stops the hand and gives money to winner if everyone else has folded.
 		if (checkWinner()) {
@@ -120,7 +120,7 @@ public class Game {
 	 * this starts a betting round,getting bets from each player, and goes until isBettingFunction returns false
 	 */
 	private void bet() {
-		System.out.println("The pot is currently at " + getPot() + " dollars");
+		System.out.println("Pot: " + getPot());
 		Player current;
 		//Will do this until everyone stops raising the stakes
 		do {
@@ -132,6 +132,7 @@ public class Game {
 			if (!current.hasFolded) {
 				//Only does this for human players
 				if (!current.isComp) {
+					System.out.println("");
 					for (Player currentPlayer : players) {
 						if (!currentPlayer.hasFolded) {
 						System.out.println(currentPlayer.name + " has bid " + currentPlayer.currentBid);
