@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 /**
  * 
  * @author Adam Cramer, Wesley Curtis, Jake Murphy
@@ -48,6 +51,7 @@ public class Game {
 	 * plays the next hand
 	 */
 	public void playHand() {
+		
 		System.out.println("Welcome to Poker! Let's deal out the cards.");
 		Deck deck = new Deck();
 		deck.shuffle();
@@ -69,8 +73,8 @@ public class Game {
 		//Resets everyone to not being folded and says what everyone has
 		for (int i = 0; i < players.size(); i++) {
 			players.get(i).hasFolded = false;
-			players.get(i).Update();
-			System.out.println(players.get(i).name + " has the cards " + players.get(i).toString());
+			//players.get(i).Update();
+			//System.out.println(players.get(i).name + " has the cards " + players.get(i).toString());
 		}
 		
 		//Assigns the small and big blinds, which are forced to start the bidding
