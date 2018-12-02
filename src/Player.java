@@ -27,8 +27,8 @@ public class Player {
 	public boolean isComp;
 	public boolean isBetting;
 	
-	private JLabel card1;
-	private JLabel card2;
+	public JLabel card1;
+	public JLabel card2;
 	
 	/**
 	 * Creates a blank player with no cards or money
@@ -60,10 +60,14 @@ public class Player {
 			
 			ImageIcon icon = new ImageIcon(dimg);
 			if (counter == 1) {
-				card1 = new JLabel(icon);
+				card1 = new JLabel(icon);			
 			}
 			else {
 				card2 = new JLabel(icon);
+			}
+			if (!isComp) {
+				GameScreen.yourCard1 = card1;	
+				GameScreen.yourCard2 = card2;
 			}
 		}
 	}
@@ -75,11 +79,11 @@ public class Player {
 	 * @return the stakes after the players turn
 	 */
 	public int getBid(int stakes, int pot, ArrayList<Card> commCards) {
-		System.out.println(name + "'s turn\nYou have " + this.toString());
-		System.out.println("The stakes are at " + stakes + " and the pot is " + pot + 
-				".\nYour current bid is " + currentBid + " and you have " + money + " dollars.");
+		System.out.println("\nYou have " + this.toString());
+		System.out.println("Stakes: " + stakes + "\tPot: " + pot + 
+				"\nCurrent bid: " + currentBid + "\tMoney: " + money);
 		do {
-			System.out.println("Would you like to fold(f), check(c), raise(r) or call(l)?");
+			System.out.println("\nWould you like to fold(f), check(c), raise(r) or call(l)?");
 			char answer = scan.next().toLowerCase().charAt(0);
 			if (answer == 'f') {
 				fold();
@@ -173,6 +177,7 @@ public class Player {
 		}
 		return output;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if(this == obj) {
