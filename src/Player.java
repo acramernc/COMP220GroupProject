@@ -1,5 +1,13 @@
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 /**
  * 
  * @author Adam Cramer, Wesley Curtis, Jake Murphy
@@ -19,6 +27,9 @@ public class Player {
 	public boolean isComp;
 	public boolean isBetting;
 	
+	private JLabel card1;
+	private JLabel card2;
+	
 	/**
 	 * Creates a blank player with no cards or money
 	 */
@@ -31,6 +42,30 @@ public class Player {
 		scan = new Scanner(System.in);
 		isComp = false;
 		isBetting = true;
+	}
+	
+	public void Update() {
+		BufferedImage img = null;
+		int counter = 0;
+		for (Card card : hand ) {
+			counter++;
+			try {
+			    img = ImageIO.read(new File(card.getImage()));
+			} catch (IOException e) {
+			    e.printStackTrace();
+			}
+			
+			Image dimg = img.getScaledInstance(83, 114,
+			        Image.SCALE_SMOOTH);
+			
+			ImageIcon icon = new ImageIcon(dimg);
+			if (counter == 1) {
+				card1 = new JLabel(icon);
+			}
+			else {
+				card2 = new JLabel(icon);
+			}
+		}
 	}
 	
 	/**

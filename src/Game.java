@@ -69,6 +69,7 @@ public class Game {
 		//Resets everyone to not being folded and says what everyone has
 		for (int i = 0; i < players.size(); i++) {
 			players.get(i).hasFolded = false;
+			players.get(i).Update();
 			System.out.println(players.get(i).name + " has the cards " + players.get(i).toString());
 		}
 		
