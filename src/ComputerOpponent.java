@@ -120,7 +120,7 @@ public class ComputerOpponent extends Player {
 		
 		//Generates a random number between 1 and 100
 		int rand = (int)(Math.random() *100);
-		System.out.println("probability: " + prob + " rand: " + rand);
+		//System.out.println("probability: " + prob + " rand: " + rand);
 		
 		//if the random number is less than the probability, they call or raise
 		if (rand < prob) {
