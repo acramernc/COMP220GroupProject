@@ -33,6 +33,7 @@ public class Score {
 	 * @return player that won
 	 */
 	public Player getWinner() {
+		System.out.println("Scoring hands");
 		TreeMap<Integer, HashSet<Player>> playerRank = new TreeMap<Integer, HashSet<Player>>();
 		int tempRank;
 		for(Player p: playerList) {
@@ -73,10 +74,13 @@ public class Score {
 				tempPlayer = iter.next();
 				while(iter.hasNext()) {
 					if(handHigh(winner) == handHigh(tempPlayer) && !winner.equals(tempPlayer)) {
+						System.out.println("Tie!");//TODO remove
 						return null;//this is bad but wesley wants it 
 					}
+					tempPlayer = iter.next();
 				}
 			}
+			System.out.println(winner.name + " wins");
 			return winner;
 		}
 	}
@@ -85,6 +89,7 @@ public class Score {
 	 * @return integer ranking of hand
 	 */
 	public int rankHand(Player p) {
+		System.out.println("Scoring " + p.name);//TODO remove
 		if (isRFlush(p.hand, coCards)) {
 			return 1;
 		}
@@ -568,6 +573,8 @@ public class Score {
 	
 		while(!isValid && highCard > 5) {
 			isValid = isNumHigh(hand, commCards, highCard);
+			if(!isValid)
+				highCard--;
 		}
 		if(isValid)
 			return highCard;
