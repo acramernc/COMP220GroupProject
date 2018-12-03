@@ -79,6 +79,13 @@ public class Player {
 	 * @return the stakes after the players turn
 	 */
 	public int getBid(int stakes, int pot, ArrayList<Card> commCards) {
+		if (money <= 0) {
+			System.out.println(name + " is out of money.");
+			fold();
+			money = 0;
+			System.out.println(name + " has lost.");
+			System.exit(0);
+		}
 		System.out.println("\nYou have " + this.toString());
 		System.out.println("Stakes: " + stakes + "\tPot: " + pot + 
 				"\nCurrent bid: " + currentBid + "\tMoney: " + money);
@@ -100,33 +107,39 @@ public class Player {
 				}
 			}
 			else if (answer == 'l') {
+			
 				call(stakes);
 				return stakes;
+				
 			}
 			else if (answer == 'r') {
 				System.out.println("What would you like to raise it to?");
 				int amount = scan.nextInt();
-				if (amount > stakes) {
+				if (amount > stakes && money >= amount) {
 					raise(amount);
 					return amount;
 				}
 				else {
-					System.out.println("You must raise the bid to a higher amount than it already is.");
+					System.out.println("Invalid bid (you must have enough money & bid must be a higher amount than it already is.");
 				}
 			} else
 				System.out.println("You did not pick one of the options, try not being an idiot.");
 			} while (true);
 	}
 	
-	
 	/**
 	 * Raises the current bid to amount
 	 * @param amount what the total bid will be
 	 */
 	public void raise(int amount) {
+		
 		System.out.println(name + " has raised the stakes to " + amount);
 		money -= amount - currentBid;
 		currentBid = amount;
+		if (money < 0) {
+			money = 0;
+		}
+		
 	}
 	
 	/**
@@ -136,6 +149,10 @@ public class Player {
 		System.out.println(name + " has called.");
 		money -= stakes - currentBid;
 		currentBid = stakes;
+		if (money < 0) {
+			money = 0;
+		}
+		
 	}
 	
 	/**
