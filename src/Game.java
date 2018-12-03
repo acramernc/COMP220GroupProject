@@ -268,7 +268,11 @@ public class Game {
 		Player winner = null;
 		Score score = new Score(players, commCards);
 		winner = score.getWinner();
-		winner.money += getPot();
+		if(winner == null) {
+			//do nothing
+		}
+		else
+			winner.money += getPot();
 	}
 	
 	/**
